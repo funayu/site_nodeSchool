@@ -1,10 +1,14 @@
 const http = require('http');
 
-const url = process.argv[2];
+http.get(process.argv[2], function (res) {
+  let collectData = "";
 
-http.get(url, (response) => {
-  response.setEncoding('utf-8');
-  response.on('data', (data) => {
-    console.log(data);
-  });
-});
+  res.setEncoding("utf-8");
+  res.on("data", function (data) {
+    collectData += data;
+  })
+  res.on("end", function () {
+    console.log(collectData.length);
+    console.log(collectData);
+  })
+})
